@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Todo App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+        }
+        .task-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .task-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border: 1px solid #ddd;
+            margin-bottom: 5px;
+        }
+        .task-item input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        .delete-btn {
+            background-color: #ff4136;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Simple Todo App</h1>
+
+    <form id="addTaskForm">
+        <label for="newTask">New Task:</label>
+        <input type="text" id="newTask" name="newTask" required>
+        <button type="button" onclick="addTask()">Add Task</button>
+    </form>
+
+    <ul id="taskList" class="task-list">
+
+    </ul>
+</div>
+
+<script>
+    function addTask() {
+        var newTaskInput = document.getElementById("newTask");
+        var taskList = document.getElementById("taskList");
+
+        if (newTaskInput.value.trim() !== "") {
+            var taskItem = document.createElement("li");
+            taskItem.className = "task-item";
+
+            var checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.addEventListener("change", function() {
+                if (checkbox.checked) {
+                    taskItem.remove();
+                }
+            });
+
+            var taskText = document.createTextNode(newTaskInput.value.trim());
+
+            var deleteButton = document.createElement("button");
+            deleteButton.className = "delete-btn";
+            deleteButton.innerHTML = "Delete";
+            deleteButton.addEventListener("click", function() {
+
+                taskItem.remove();
+            });
+
+            taskItem.appendChild(checkbox);
+            taskItem.appendChild(taskText);
+            taskItem.appendChild(deleteButton);
+
+            taskList.appendChild(taskItem);
+            newTaskInput.value = ""; // Clear the input field
+        }
+    }
+</script>
+
+</body>
+</html> 
